@@ -15,7 +15,7 @@ if [ -d "$DB_DIR" ]; then
             echo "Operation canceled. The database '$dbname' was not deleted."
         fi
     else
-        echo "The database '$dbname' does not exist in the directory '$DB_DIR'."
+        echo "The database '$dbname' does not exist."
     fi
 
 
