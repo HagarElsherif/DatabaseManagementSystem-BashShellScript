@@ -21,7 +21,7 @@ while true; do
     # Prompt for table name
     echo ""
     read -p "Enter the name of the table: " table_name
-    table_file="$DB_DIR/$table_name _metadata.txt"
+    table_file="$DB_DIR/${table_name}_metadata.txt"
 
     # Validate table name (must start with a letter and contain only alphanumeric and underscores)
     if ! [[ "$table_name" =~ ^[a-zA-Z][a-zA-Z0-9_]*$ ]]; then
