@@ -8,7 +8,7 @@ db_menu(){
   do
   case $REPLY in
   "1")
-    . ./create_table.sh
+      . ./create_table.sh $1
       ;;
   "2")
       
@@ -17,7 +17,7 @@ db_menu(){
       .
       ;;
   "4")
-    
+      . ./insert_into_table.sh
       ;;
   * )
        echo "Enter an option from the menu"
@@ -35,7 +35,7 @@ if [ -d "$DB_DIR" ]; then
 
     read -p "Enter the database to connect with : " dbName
     if [ -d "./$DB_DIR/$dbName" ]; then
-      db_menu 
+      db_menu $dbName
     else
         echo "The database '$dbName' does not exist ."
     fi
