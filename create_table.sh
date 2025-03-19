@@ -3,7 +3,7 @@
 # Ensure a database name is provided
 if [ -z "$1" ]; then
     echo -e "Usage: $0 <database_name>\n"
-    . ./main_menu.sh
+    exit 1
 fi
 
 DB_DIR="dbms/$1"
@@ -11,7 +11,7 @@ DB_DIR="dbms/$1"
 # Check if the database directory exists
 if [ ! -d "$DB_DIR" ]; then
     echo -e "Error: Database '$1' does not exist.\n"
-    . ./main_menu.sh
+    exit 1
 fi
 
 
