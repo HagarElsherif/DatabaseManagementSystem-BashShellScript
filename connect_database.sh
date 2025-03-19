@@ -11,7 +11,7 @@ db_menu(){
       . ./create_table.sh $1
       ;;
   "2")
-      
+      . ./list_tables.sh $1  
       ;;
   "3")
       .
