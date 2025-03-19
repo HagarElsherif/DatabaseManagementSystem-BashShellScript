@@ -4,7 +4,7 @@
 
 db_menu(){
    PS3="Enter your choice number: "
-  select choice in "Create Table" "List Tables" "Drop Table" "Insert into Table" "Select from Table" "Delete from Table" "Update Table"
+  select choice in "Create Table" "List Tables" "Drop Table" "Insert into Table" "Select All from Table" "Select Specific from Table" "Delete from Table" "Update Table"
   do
   case $REPLY in
   "1")
@@ -17,8 +17,14 @@ db_menu(){
       .
       ;;
   "4")
-      . ./insert_into_table.sh
+      . ./insert_into_table.sh $1
       ;;
+  "5")
+      . ./all_select_from_table.sh $1
+      ;;
+  "6")
+      . ./specific_select_from_table.sh $1
+      ;;    
   * )
        echo "Enter an option from the menu"
       ;;  
