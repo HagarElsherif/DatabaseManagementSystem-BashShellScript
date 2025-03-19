@@ -14,7 +14,7 @@ db_menu(){
       . ./list_tables.sh $1  
       ;;
   "3")
-      .
+      . ./drop_table.sh
       ;;
   "4")
       . ./insert_into_table.sh
