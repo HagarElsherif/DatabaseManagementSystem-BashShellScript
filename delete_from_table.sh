@@ -21,8 +21,7 @@ readarray -t cols_names_array <<< "$cols_names"
 
 echo -e "\nChoose an option:"
 echo "1) Delete all rows"
-echo "2) Delete by Primary Key"
-echo "3) Delete by column value"
+echo "2) Delete by column value"
 
 read -p "Enter your choice: " choice
 
