@@ -32,13 +32,7 @@ case $choice in
     echo "All rows deleted successfully."
     ;;
     
-2)  # by Primary Key
-    read -p "Enter the Primary Key value to delete: " pk_value
-    awk -F: -v pk="$pk_value" '$1 != pk' "$table_data" > temp && mv temp "$table_data"
-    echo "Record with Primary Key '$pk_value' deleted successfully."
-    ;;
-    
-3)  #  by column value
+2)  #  by column value
     echo "Select a column to filter by:"
     for i in "${!cols_names_array[@]}"; do
         echo "$((i+1))) ${cols_names_array[i]}"
