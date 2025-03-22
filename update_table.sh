@@ -59,11 +59,7 @@ check_string(){
 
 # Function to ensure Primary Key is unique
 check_PK(){
-    awk -v value=$1 '
-    BEGIN{ FS=":" }
-    { if ($1 == value) { print "The primary key must be unique"; exit 1 } }
-    END{}
-    ' $table_data && return 1 || return 0
+    grep -q "^$1:" "$table_data" && echo "The primary key must be unique" && return 1 || return 0
 }
 
 # Ask for the column to filter by
@@ -81,16 +77,16 @@ fi
 # Ask for the value to search for
 read -p "Enter the value to search for: " filter_value
 
-# Find matching row(s)
-matched_rows=$(awk -F: -v col="$filter_col_num" -v value="$filter_value" '$col == value' "$table_data")
+# Find matching row(s) and get line number
+matched_line=$(awk -F: -v col="$filter_col_num" -v value="$filter_value" '$col == value {print NR}' "$table_data")
 
-if [ -z "$matched_rows" ]; then
+if [ -z "$matched_line" ]; then
     echo "No records found with '${cols_names_array[filter_col_num-1]}' = '$filter_value'. Returning to menu..."
     return
 fi
 
-echo "Matching records found:"
-echo "$matched_rows"
+echo "Matching record found:"
+sed -n "${matched_line}p" "$table_data"
 
 # Ask for the column to update
 echo "Select the column to update:"
@@ -98,17 +94,16 @@ for i in "${!cols_names_array[@]}"; do
     echo "$((i+1))) ${cols_names_array[i]}"
 done
 
-read -p "Enter column number: " update_col_num
+read -p "Enter column number to update: " update_col_num
 if [[ ! $update_col_num =~ ^[0-9]+$ ]] || ((update_col_num < 1 || update_col_num > ${#cols_names_array[@]})); then
     echo "Invalid column number. Returning to menu..."
     return
 fi
 
-# Ask for new value
+# Ask for new value and validate it
 while true; do
     read -p "Enter new value: " new_value
 
-    # Validate input based on type
     data_type=${cols_types_array[update_col_num-1]}
 
     if [ "$update_col_num" -eq 1 ]; then
@@ -122,11 +117,11 @@ while true; do
     fi
 done
 
-# Update the row
-awk -F: -v col="$update_col_num" -v value="$filter_value" -v new="$new_value" '
+# Update the row in the file
+awk -F: -v col="$update_col_num" -v value="$filter_value" -v new="$new_value" -v line="$matched_line" '
 BEGIN {OFS=":"}
-$col == value { $col = new }
+NR == line { $col = new }
 { print }
 ' "$table_data" > temp && mv temp "$table_data"
 
-echo "Records updated successfully."
+echo "Record updated successfully."
