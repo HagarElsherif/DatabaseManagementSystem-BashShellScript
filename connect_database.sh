@@ -3,6 +3,7 @@
 
 
 db_menu(){
+
     while true;do
         echo -e "\n1) Create Table\n2) List Tables\n3) Drop Table\n4) Insert into Table\n5) Select All from Table\n6) Select Specific from Table\n7) Delete from Table\n8) Update Table\n9) Return to main menu\n"
         read -p "Enter your choice number: " option
@@ -35,6 +36,7 @@ db_menu(){
  
 
     done
+
 
 
 
