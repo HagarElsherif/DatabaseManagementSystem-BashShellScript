@@ -24,6 +24,7 @@ while true; do
 
     if [ ! -f "$table_file" ] ;then
       echo -e "Table is not found"
+      exist 1
     else
        break
     fi 
