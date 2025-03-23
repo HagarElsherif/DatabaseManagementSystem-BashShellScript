@@ -6,13 +6,6 @@ if [ -z "$1" ]; then
     exit 1
 fi
 
-DB_DIR="dbms/$1"
-
-# Check if the database directory exists
-if [ ! -d "$DB_DIR" ]; then
-    echo -e "Error: Database '$1' does not exist.\n"
-    exit 1
-fi
 
 
 

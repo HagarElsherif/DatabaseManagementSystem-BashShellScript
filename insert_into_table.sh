@@ -7,29 +7,20 @@ if [ -z "$1" ]; then
     exit 1
 fi
 
-DB_DIR="dbms/$1"
 
-# Check if the database directory exists
-if [ ! -d "$DB_DIR" ]; then
-    echo -e "Error: Database '$1' does not exist.\n"
-    exit 1
-fi
 
-while true; do
 
-    # Prompt for table name
-    echo ""
-    read -p "Enter the name of the table: " table_name
-    table_file="$DB_DIR/${table_name}_metadata.txt"
+# Prompt for table name
+echo ""
+read -p "Enter the name of the table: " table_name
+table_file="$DB_DIR/${table_name}_metadata.txt"
 
-    if [ ! -f "$table_file" ] ;then
-      echo -e "Table is not found"
-      exist 1
-    else
-       break
-    fi 
+if [ ! -f "$table_file" ] ;then
+    echo -e "Table is not found"
+    return
+fi 
 
-done
+
 
 table_file_data="$DB_DIR/$table_name.txt"
 touch $table_file_data

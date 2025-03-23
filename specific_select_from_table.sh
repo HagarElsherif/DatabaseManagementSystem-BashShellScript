@@ -7,13 +7,6 @@ if [ -z "$1" ]; then
     exit 1
 fi
 
-DB_DIR="dbms/$1"
-
-# Check if the database directory exists
-if [ ! -d "$DB_DIR" ]; then
-    echo -e "Error: Database '$1' does not exist.\n"
-    exit 1
-fi
 
 
 # Prompt for table name
@@ -27,7 +20,7 @@ read -p "Enter the value : " value
 
 if [ ! -f "$table_file" ]; then
   echo -e "Table is not found"
-  exit 1
+  return
 fi
  
 
@@ -45,12 +38,12 @@ done
 # Check if col_num is set
 if [[ -z "$col_num" ]]; then
     echo -e "There is no column with that name\n"
-    exit 1
+    return
 fi
 
 if [ ! -f "$table_file_data" ]; then
     echo -e "No data found"
-    exit 0
+    return
 fi   
 
 
@@ -62,12 +55,16 @@ echo ${table_header}
 awk -v col="${col_num}" -v val="${value}" '
   BEGIN{ 
     FS=":"
+    rows=0
   }
   {
     if($col == val){
       gsub(":", " | ", $0);
       print $0
+      rows+=1
     }
   }
-  END{}
+  END{
+    print "rows = "rows
+  }
   ' "$table_file_data" 
