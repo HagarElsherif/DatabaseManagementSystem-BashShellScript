@@ -19,12 +19,21 @@ db_menu(){
   "4")
       . ./insert_into_table.sh $1
       ;;
+
+  "6")
+      . ./delete_from_table.sh
+      ;;
+  "7")
+      . ./update_table.sh
+      ;;   
+
   "5")
       . ./all_select_from_table.sh $1
       ;;
   "6")
       . ./specific_select_from_table.sh $1
       ;;    
+
   * )
        echo "Enter an option from the menu"
       ;;  
