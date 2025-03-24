@@ -1,11 +1,6 @@
 #!/bin/bash
 
 
-
-
-
-
-
 while true; do
 
     # Prompt for table name
@@ -42,9 +37,8 @@ while true; do
 done
 
 
-
 # Create table file
-touch "$table_file" || { echo "Error: Failed to create table file."; exit 1; }
+touch "$table_file" || { echo "Error: Failed to create table file."; return; }
 
 # Write table name and column count to file
 echo "$table_name" > "$table_file"
