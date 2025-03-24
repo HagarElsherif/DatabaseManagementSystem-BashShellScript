@@ -1,10 +1,6 @@
 #!/bin/bash
 
-# Ensure a database name is provided
-if [ -z "$1" ]; then
-    echo -e "Usage: $0 <database_name>\n"
-    exit 1
-fi
+
 
 
 
@@ -54,6 +50,7 @@ touch "$table_file" || { echo "Error: Failed to create table file."; exit 1; }
 echo "$table_name" > "$table_file"
 echo "$no_columns" >> "$table_file"
 
+unset column_names
 declare -A column_names # To ensure uniqueness
 
 # Function to validate column names
@@ -101,7 +98,7 @@ do
     fi
 done
 
-echo -e "Success: Table '$table_name' created in database '$1'.\n"
+echo -e "Success: Table '$table_name' created in database '$DB_DIR'.\n"
 
 
 

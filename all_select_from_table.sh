@@ -1,14 +1,6 @@
 #!/bin/bash
 
 
-# Ensure a database name is provided
-if [ -z "$1" ]; then
-    echo -e "Usage: $0 <database_name>\n"
-    exit 1
-fi
-
-
-
 
 # Prompt for table name
 echo ""
@@ -18,6 +10,11 @@ table_file_data="$DB_DIR/$table_name.txt"
 
 if [ ! -f "$table_file" ]; then
   echo -e "Table is not found"
+  return
+fi
+
+if [ ! -f "$table_file_data" ]; then
+  echo -e "No data found"
   return
 fi
 
@@ -41,6 +38,11 @@ awk  '
       rows+=1
   }
   END{
-  print "rows = "rows
+    if(rows == 0){
+      print "No data found"
+    }
+    else{
+      print "rows = "rows
+    }
   }
   ' "$table_file_data" 

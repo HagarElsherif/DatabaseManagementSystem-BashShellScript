@@ -1,18 +1,5 @@
 #!/bin/bash
 
-# Ensure a database name is provided
-if [ -z "$1" ]; then
-    echo -e "Usage: $0 <database_name>\n"
-    return
-fi
-
-DB_DIR="dbms/$1"
-
-# Check if the database exists
-if [ ! -d "$DB_DIR" ]; then
-    echo -e "Error: Database '$1' does not exist.\n"
-    return
-fi
 
 # Prompt for table name
 echo ""
@@ -44,12 +31,12 @@ check_int(){
 
 # Function to check string input
 check_string(){
-    if [[ -z $1 ]]; then
+    if [[ -z "$1" ]]; then
         echo -e "Error: Empty input\n"
         return 1
     fi
 
-    if [[ $1 =~ ^[a-zA-Z_][a-zA-Z0-9_\ ]*$ ]]; then
+    if [[ "$1" =~ ^[a-zA-Z_][a-zA-Z0-9_@.\ ]*$ ]]; then
         return 0
     else
         echo -e "Invalid string format\n"

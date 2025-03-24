@@ -1,13 +1,5 @@
 #!/bin/bash
 
-# Ensure a database name is provided
-if [ -z "$1" ]; then
-    echo -e "Usage: $0 <database_name>\n"
-    exit 1
-fi
-
-
-
 
 readarray -t tables < <(find "${DB_DIR}" -maxdepth 1 -type f -name "*_metadata.txt"  )
 

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-DB_DIR="dbms/$1"
+
 
 
 echo ""
@@ -12,7 +12,7 @@ table_data="$DB_DIR/$table_name.txt"
 
 if [ ! -f "$table_file" ]; then
     echo "Table does not exist."
-    exit 1
+    return
 fi
 
 # Read column names from metadata
@@ -40,7 +40,7 @@ case $choice in
     read -p "Enter column number: " col_num
     if [[ ! $col_num =~ ^[0-9]+$ ]] || ((col_num < 1 || col_num > ${#cols_names_array[@]})); then
         echo "Invalid column number."
-        exit 1
+        return
     fi
 
     read -p "Enter the value to delete: " delete_value
@@ -51,6 +51,6 @@ case $choice in
 
 *)  # Invalid choice
     echo "Invalid option. Please choose from the menu."
-    exit 1
+    return
     ;;
 esac

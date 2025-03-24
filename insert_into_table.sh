@@ -1,11 +1,6 @@
 #!/bin/bash
 
 
-# Ensure a database name is provided
-if [ -z "$1" ]; then
-    echo -e "Usage: $0 <database_name>\n"
-    exit 1
-fi
 
 
 
@@ -34,7 +29,7 @@ readarray -t cols_names_array <<< "$cols_names"
 readarray -t cols_data_types_array <<< "$cols_data_types"
 
 check_int(){
-  if [[ $1 =~ ^[0-9]+$ ]]; then
+  if [[ "$1" =~ ^[0-9]+$ ]]; then
     return 0
   else
     echo -e "Invalid Integer \n"
@@ -46,13 +41,13 @@ check_int(){
 check_string(){
 
     # Check if input is empty
-    if [[ -z $1 ]]; then
+    if [[ -z "$1" ]]; then
         echo -e "Error: Empty input\n"
         return 1
     fi
 
    
-    if [[ $1 =~ ^[a-zA-Z_][a-zA-Z0-9_\ ]*$ ]]; then
+    if [[ "$1" =~ ^[a-zA-Z_][a-zA-Z0-9_@.\ ]*$ ]]; then
 
         return 0
     else

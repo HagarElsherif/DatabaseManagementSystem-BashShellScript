@@ -1,12 +1,6 @@
 #!/bin/bash
 
 
-# Ensure a database name is provided
-if [ -z "$1" ]; then
-    echo -e "Usage: $0 <database_name>\n"
-    exit 1
-fi
-
 
 
 # Prompt for table name
@@ -65,6 +59,11 @@ awk -v col="${col_num}" -v val="${value}" '
     }
   }
   END{
-    print "rows = "rows
+    if(rows == 0){
+      print "No data found"
+    }
+    else{
+      print "rows = "rows
+    }
   }
   ' "$table_file_data" 

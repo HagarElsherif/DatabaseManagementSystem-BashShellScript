@@ -9,23 +9,29 @@ db_menu(){
         read -p "Enter your choice number: " option
         case $option in
         "1")
-            . ./create_table.sh $1
+            . ./create_table.sh 
             ;;
         "2")
-            . ./list_tables.sh $1  
+            . ./list_tables.sh 
             ;;
         "3")
-            . ./drop_table.sh
+            . ./drop_table.sh 
             ;;
         "4")
-            . ./insert_into_table.sh $1
+            . ./insert_into_table.sh 
             ;;
         "5")
-            . ./all_select_from_table.sh $1
+            . ./all_select_from_table.sh 
             ;;
         "6")
-            . ./specific_select_from_table.sh $1
-            ;;   
+            . ./specific_select_from_table.sh 
+            ;;  
+        "7")
+            . ./delete_from_table.sh
+            ;;  
+        "8")
+            . ./update_table.sh
+            ;;          
         "9")
             . ./main_menu.sh
             ;;   
@@ -51,7 +57,7 @@ if [ -d "$DB_DIR" ]; then
     read -p "Enter the database to connect with : " dbName
     if [ -d "./$DB_DIR/$dbName" ]; then
       DB_DIR+="/$dbName"
-      db_menu $dbName
+      db_menu 
     else
         echo "The database '$dbName' does not exist ."
     fi

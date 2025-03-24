@@ -6,7 +6,7 @@ main_menu() {
             case $option in
                 5)
                     echo "Exiting the program. Goodbye!"
-                    break
+                    exit
                     ;;
                 1)
                     . ./create_database.sh
