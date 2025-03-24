@@ -3,42 +3,48 @@
 
 
 db_menu(){
-   PS3="Enter your choice number: "
-  select choice in "Create Table" "List Tables" "Drop Table" "Insert into Table" "Select All from Table" "Select Specific from Table" "Delete from Table" "Update Table"
-  do
-  case $REPLY in
-  "1")
-      . ./create_table.sh $1
-      ;;
-  "2")
-      . ./list_tables.sh $1  
-      ;;
-  "3")
-      . ./drop_table.sh
-      ;;
-  "4")
-      . ./insert_into_table.sh $1
-      ;;
 
-  "6")
-      . ./delete_from_table.sh
-      ;;
-  "7")
-      . ./update_table.sh
-      ;;   
+    while true;do
+        echo -e "\n1) Create Table\n2) List Tables\n3) Drop Table\n4) Insert into Table\n5) Select All from Table\n6) Select Specific from Table\n7) Delete from Table\n8) Update Table\n9) Return to main menu\n"
+        read -p "Enter your choice number: " option
+        case $option in
+        "1")
+            . ./create_table.sh 
+            ;;
+        "2")
+            . ./list_tables.sh 
+            ;;
+        "3")
+            . ./drop_table.sh 
+            ;;
+        "4")
+            . ./insert_into_table.sh 
+            ;;
+        "5")
+            . ./all_select_from_table.sh 
+            ;;
+        "6")
+            . ./specific_select_from_table.sh 
+            ;;  
+        "7")
+            . ./delete_from_table.sh
+            ;;  
+        "8")
+            . ./update_table.sh
+            ;;          
+        "9")
+            . ./main_menu.sh
+            ;;   
+        * )
+            echo "Enter an option from the menu"
+            ;;  
+        esac
+ 
 
-  "5")
-      . ./all_select_from_table.sh $1
-      ;;
-  "6")
-      . ./specific_select_from_table.sh $1
-      ;;    
+    done
 
-  * )
-       echo "Enter an option from the menu"
-      ;;  
-  esac
-  done
+
+
 
 }
 
@@ -50,7 +56,8 @@ if [ -d "$DB_DIR" ]; then
 
     read -p "Enter the database to connect with : " dbName
     if [ -d "./$DB_DIR/$dbName" ]; then
-      db_menu $dbName
+      DB_DIR+="/$dbName"
+      db_menu 
     else
         echo "The database '$dbName' does not exist ."
     fi

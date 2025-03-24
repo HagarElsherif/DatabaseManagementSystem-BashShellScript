@@ -2,6 +2,7 @@
 
 if [ ! -d "dbms" ]; then
     mkdir dbms
+    DB_DIR="dbms"
 fi
 
 
@@ -10,10 +11,10 @@ read -p "Enter the database name: " db_name
 
 if [[ "$db_name" =~ ^[a-zA-Z][a-zA-Z0-9_]*$ ]]; then
         
-    if [ -d "dbms/$db_name" ]; then
+    if [ -d "$DB_DIR/$db_name" ]; then
         echo "The database '$db_name' already exists '."
     else
-        mkdir "dbms/$db_name"
+        mkdir "$DB_DIR/$db_name"
         echo "Database '$db_name' has been created'."
     fi
 

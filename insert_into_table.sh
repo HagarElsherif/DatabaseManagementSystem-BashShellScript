@@ -1,35 +1,21 @@
 #!/bin/bash
 
 
-# Ensure a database name is provided
-if [ -z "$1" ]; then
-    echo -e "Usage: $0 <database_name>\n"
-    exit 1
-fi
 
-DB_DIR="dbms/$1"
 
-# Check if the database directory exists
-if [ ! -d "$DB_DIR" ]; then
-    echo -e "Error: Database '$1' does not exist.\n"
-    exit 1
-fi
 
-while true; do
 
-    # Prompt for table name
-    echo ""
-    read -p "Enter the name of the table: " table_name
-    table_file="$DB_DIR/${table_name}_metadata.txt"
+# Prompt for table name
+echo ""
+read -p "Enter the name of the table: " table_name
+table_file="$DB_DIR/${table_name}_metadata.txt"
 
-    if [ ! -f "$table_file" ] ;then
-      echo -e "Table is not found"
-      exist 1
-    else
-       break
-    fi 
+if [ ! -f "$table_file" ] ;then
+    echo -e "Table is not found"
+    return
+fi 
 
-done
+
 
 table_file_data="$DB_DIR/$table_name.txt"
 touch $table_file_data
@@ -43,7 +29,7 @@ readarray -t cols_names_array <<< "$cols_names"
 readarray -t cols_data_types_array <<< "$cols_data_types"
 
 check_int(){
-  if [[ $1 =~ ^[0-9]+$ ]]; then
+  if [[ "$1" =~ ^[0-9]+$ ]]; then
     return 0
   else
     echo -e "Invalid Integer \n"
@@ -55,13 +41,13 @@ check_int(){
 check_string(){
 
     # Check if input is empty
-    if [[ -z $1 ]]; then
+    if [[ -z "$1" ]]; then
         echo -e "Error: Empty input\n"
         return 1
     fi
 
    
-    if [[ $1 =~ ^[a-zA-Z_][a-zA-Z0-9_\ ]*$ ]]; then
+    if [[ "$1" =~ ^[a-zA-Z_][a-zA-Z0-9_@.\ ]*$ ]]; then
 
         return 0
     else

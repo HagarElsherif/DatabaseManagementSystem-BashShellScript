@@ -1,9 +1,9 @@
 #!/bin/bash
 
 read -p "Enter the table name to delete: " tablename
-DB_PATH="dbms/$1"
-TABLE_FILE="$DB_PATH/$tablename.txt"
-METADATA_FILE="$DB_PATH/${tablename}_metadata.txt"
+
+TABLE_FILE="$DB_DIR/$tablename.txt"
+METADATA_FILE="$DB_DIR/${tablename}_metadata.txt"
 
 
 if [ -f "$METADATA_FILE" ]; then
