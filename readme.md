@@ -59,5 +59,5 @@ The application is menu-driven and provides the following functionalities:
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the MIT License.
 
