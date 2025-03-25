@@ -55,6 +55,11 @@ DB_DIR="dbms"
 if [ -d "$DB_DIR" ]; then 
 
     read -p "Enter the database to connect with : " dbName
+    if [ -z "$dbName" ];then
+       echo "You must specify a database"
+       return 
+    fi
+    
     if [ -d "./$DB_DIR/$dbName" ]; then
       DB_DIR+="/$dbName"
       db_menu 
