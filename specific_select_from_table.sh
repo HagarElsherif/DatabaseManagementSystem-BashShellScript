@@ -1,8 +1,6 @@
 #!/bin/bash
 
 
-
-
 # Prompt for table name
 echo ""
 read -p "Enter the name of the table: " table_name

@@ -9,16 +9,16 @@ main_menu() {
                     exit
                     ;;
                 1)
-                    . ./create_database.sh
+                    ./create_database.sh
                     ;;
                 2)
-                    . ./delete_database.sh
+                    ./delete_database.sh
                     ;;
                 3)
                     . ./connect_database.sh
                     ;;
                 4)
-                    . ./list_database.sh
+                    ./list_database.sh
                     ;;
                 *)
                     echo "Invalid Option: Please choose an option from the menu."

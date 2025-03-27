@@ -19,36 +19,6 @@ cols_types=$(sed -n '3,$p' "$table_file" | cut -d: -f2)
 readarray -t cols_names_array <<< "$cols_names"
 readarray -t cols_types_array <<< "$cols_types"
 
-# Function to check integer input
-check_int(){
-  if [[ $1 =~ ^[0-9]+$ ]]; then
-    return 0
-  else
-    echo -e "Invalid Integer \n"
-    return 1
-   fi
-}
-
-# Function to check string input
-check_string(){
-    if [[ -z "$1" ]]; then
-        echo -e "Error: Empty input\n"
-        return 1
-    fi
-
-    if [[ "$1" =~ ^[a-zA-Z_][a-zA-Z0-9_@.\ ]*$ ]]; then
-        return 0
-    else
-        echo -e "Invalid string format\n"
-        return 1
-    fi
-}
-
-# Function to ensure Primary Key is unique
-check_PK(){
-    grep -q "^$1:" "$table_data" && echo "The primary key must be unique" && return 1 || return 0
-}
-
 # Ask for the column to filter by
 echo "Select the column to filter by:"
 for i in "${!cols_names_array[@]}"; do

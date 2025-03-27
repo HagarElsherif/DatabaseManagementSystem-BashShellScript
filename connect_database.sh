@@ -1,5 +1,6 @@
 #!/bin/bash
 
+. ./validation.sh
 
 
 db_menu(){

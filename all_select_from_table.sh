@@ -23,10 +23,6 @@ table_header=$(echo "${cols_names_array[@]}")
 table_header="${table_header// / | }"
 echo ${table_header}
 
-
-
-
-
 awk  '
   BEGIN{ 
     FS=":"
