@@ -1,19 +1,10 @@
 #!/bin/bash
 
-
-
-
-
 echo ""
 read -p "Enter the name of the table: " table_name
 table_file="$DB_DIR/${table_name}_metadata.txt"
 table_data="$DB_DIR/$table_name.txt"
 
-
-if [ ! -f "$table_file" ]; then
-    echo "Table does not exist."
-    return
-fi
 
 # Read column names from metadata
 cols_names=$(sed -n '3,$p' "$table_file" | cut -d: -f1)
@@ -26,12 +17,16 @@ echo "2) Delete by column value"
 read -p "Enter your choice: " choice
 
 case $choice in
-1)  # all rows
-    > "$table_data"
-    echo "All rows deleted successfully."
+1)  # Delete all rows
+    if [ ! -s "$table_data" ]; then
+        echo "Table is already empty."
+    else
+        > "$table_data"
+        echo "All rows deleted successfully."
+    fi
     ;;
-    
-2)  #  by column value
+
+2)  # Delete by column
     echo "Select a column to filter by:"
     for i in "${!cols_names_array[@]}"; do
         echo "$((i+1))) ${cols_names_array[i]}"
@@ -45,8 +40,15 @@ case $choice in
 
     read -p "Enter the value to delete: " delete_value
 
-    awk -F: -v col="$col_num" -v value="$delete_value" '$col != value' "$table_data" > temp && mv temp "$table_data"
-    echo "Rows with '${cols_names_array[col_num-1]}' = '$delete_value' deleted successfully."
+    # Count matching rows
+    match_count=$(awk -F: -v col="$col_num" -v value="$delete_value" '$col == value' "$table_data" | wc -l)
+
+    if [ "$match_count" -eq 0 ]; then
+        echo "No records found with '${cols_names_array[col_num-1]}' = '$delete_value'."
+    else
+        awk -F: -v col="$col_num" -v value="$delete_value" '$col != value' "$table_data" > temp && mv temp "$table_data"
+        echo "$match_count row(s) deleted successfully."
+    fi
     ;;
 
 *)  # Invalid choice
