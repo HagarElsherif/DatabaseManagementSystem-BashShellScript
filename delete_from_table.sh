@@ -6,6 +6,11 @@ table_file="$DB_DIR/${table_name}_metadata.txt"
 table_data="$DB_DIR/$table_name.txt"
 
 
+if [ ! -f "$table_file" ]; then
+    echo "Table does not exist."
+    return
+fi
+
 # Read column names from metadata
 cols_names=$(sed -n '3,$p' "$table_file" | cut -d: -f1)
 readarray -t cols_names_array <<< "$cols_names"
