@@ -2,7 +2,7 @@
 
 # Prompt for table name
 echo ""
-read -p "Enter the name of the table: " table_name
+read -r -p "Enter the name of the table: " table_name
 table_file="$DB_DIR/${table_name}_metadata.txt"
 
 if [ ! -f "$table_file" ] ;then
@@ -30,16 +30,29 @@ for ((i=0; i<cols_num; i++)); do
     while true ;do
 
     echo ""
-    read -p "Enter a value for the $field : " value
+    read -r -p "Enter a value for the $field : " value
         if [ "$i" -eq 0 ] ;then
            check_PK $value || continue
         fi
 
-        if [ $data_type = 'int' ] ;then
-           check_int $value && break
-        else 
-           check_string $value && break
-        fi
+        case $data_type in
+            "int") 
+                check_int "$value" && break
+                ;;
+            "string") 
+                check_string "$value" && break
+                ;;
+            "date") 
+                check_date "$value" && break
+                ;;
+            "time") 
+                check_time "$value" && break
+                ;;
+            *) 
+                echo "Unknown data type: $data_type"
+                return
+                ;;
+        esac
     done
 
 

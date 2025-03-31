@@ -7,7 +7,7 @@ db_menu(){
 
     while true;do
         echo -e "\n1) Create Table\n2) List Tables\n3) Drop Table\n4) Insert into Table\n5) Select All from Table\n6) Select Specific from Table\n7) Delete from Table\n8) Update Table\n9) Return to main menu\n"
-        read -p "Enter your choice number: " option
+        read -r -p "Enter your choice number: " option
         case $option in
         "1")
             . ./create_table.sh 
@@ -55,7 +55,7 @@ DB_DIR="dbms"
 
 if [ -d "$DB_DIR" ]; then 
 
-    read -p "Enter the database to connect with : " dbName
+    read -r -p "Enter the database to connect with : " dbName
     if [ -z "$dbName" ];then
        echo "You must specify a database"
        return 

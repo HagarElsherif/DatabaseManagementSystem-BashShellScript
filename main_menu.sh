@@ -2,7 +2,7 @@
 main_menu() {
     while true; do
         echo -e "\n1) Create DataBase\n2) Delete DataBase\n3) Connect DataBase\n4) List DataBases\n5) Exit the program"
-        read -p "Enter your choice number: " option
+        read -r -p "Enter your choice number: " option
             case $option in
                 5)
                     echo "Exiting the program. Goodbye!"

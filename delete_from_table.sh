@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo ""
-read -p "Enter the name of the table: " table_name
+read -r -p "Enter the name of the table: " table_name
 table_file="$DB_DIR/${table_name}_metadata.txt"
 table_data="$DB_DIR/$table_name.txt"
 
@@ -19,7 +19,7 @@ echo -e "\nChoose an option:"
 echo "1) Delete all rows"
 echo "2) Delete by column value"
 
-read -p "Enter your choice: " choice
+read -r -p "Enter your choice: " choice
 
 case $choice in
 1)  # Delete all rows
@@ -37,13 +37,13 @@ case $choice in
         echo "$((i+1))) ${cols_names_array[i]}"
     done
 
-    read -p "Enter column number: " col_num
+    read -r -p "Enter column number: " col_num
     if [[ ! $col_num =~ ^[0-9]+$ ]] || ((col_num < 1 || col_num > ${#cols_names_array[@]})); then
         echo "Invalid column number."
         return
     fi
 
-    read -p "Enter the value to delete: " delete_value
+    read -r -p "Enter the value to delete: " delete_value
 
     # Count matching rows
     match_count=$(awk -F: -v col="$col_num" -v value="$delete_value" '$col == value' "$table_data" | wc -l)

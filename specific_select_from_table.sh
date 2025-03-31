@@ -3,11 +3,11 @@
 
 # Prompt for table name
 echo ""
-read -p "Enter the name of the table: " table_name
+read -r -p "Enter the name of the table: " table_name
 table_file="$DB_DIR/${table_name}_metadata.txt"
 table_file_data="$DB_DIR/$table_name.txt"
-read -p "Enter the column name : " col_name
-read -p "Enter the value : " value
+read -r -p "Enter the column name : " col_name
+read -r -p "Enter the value : " value
 
 
 if [ ! -f "$table_file" ]; then

@@ -2,10 +2,9 @@
 
 
 while true; do
-
     # Prompt for table name
     echo ""
-    read -p "Enter the name of the table: " table_name
+    read -r -p "Enter the name of the table: " table_name
     table_file="$DB_DIR/${table_name}_metadata.txt"
 
     # Validate table name (must start with a letter and contain only alphanumeric and underscores)
@@ -25,7 +24,7 @@ while true; do
 
     # Prompt for number of columns
     echo ""
-    read -p "Enter the number of columns in the table: " no_columns
+    read -r -p "Enter the number of columns in the table: " no_columns
 
     # Validate column count (must be a positive integer)
     if ! [[ "$no_columns" =~ ^[1-9][0-9]*$ ]]; then
@@ -71,14 +70,14 @@ do
 
     while true; do
         echo ""
-        read -p "Enter the name of column $i: " col_name
+        read -r -p "Enter the name of column $i: " col_name
         validate_column_name "$col_name" && break
     done
 
     while true; do
         echo ""
-        read -p "Enter the data type of the column (int/string): " col_datatype
-        if [[ "$col_datatype" == "int" || "$col_datatype" == "string" ]]; then
+        read -r -p "Enter the data type of the column (int/string/date/time): " col_datatype
+        if [[ "$col_datatype" == "int" || "$col_datatype" == "string" || "$col_datatype" == "date" || "$col_datatype" == "time" ]]; then
             break
         else
             echo -e "Error: Invalid data type. Please enter 'int' or 'string'.\n"

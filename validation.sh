@@ -30,20 +30,27 @@ check_string(){
 
 }
 
-# check_PK(){
-#     awk -v value=$1 '
-# 	BEGIN{
-# 		FS=":"
-# 	}
-# 	{
-# 		if( $1 == value ){
-#             print "The primary key must be unique"
-#             exit 1 
-#         }
-# 	}
-# 	END{}
-# ' $table_file_data
-# }
+#Date Format YYYY-MM-DD
+check_date(){
+    if [[ "$1" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
+        return 0
+    else
+        echo -e "Invalid Date Format. Use YYYY-MM-DD \n"
+        return 1
+    fi
+}
+
+# Check a valid time Format: HH-MM-SS
+check_time(){
+    if [[ "$1" =~ ^([01][0-9]|2[0-3])-[0-5][0-9]-[0-5][0-9]$ ]]; then
+        return 0
+    else
+        echo -e "Invalid Time Format. Use HH-MM-SS \n"
+        return 1
+    fi
+}
+
+
 
 # Function to ensure Primary Key is unique
 check_PK(){

@@ -5,7 +5,7 @@ if [ ! -d "dbms" ]; then
 fi
 
 
-read -p "Enter the database name: " db_name
+read -r -p "Enter the database name: " db_name
 
 
 if [[ "$db_name" =~ ^[a-zA-Z][a-zA-Z0-9_]*$ ]]; then

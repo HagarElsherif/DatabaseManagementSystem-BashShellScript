@@ -3,7 +3,7 @@
 
 # Prompt for table name
 echo ""
-read -p "Enter the name of the table: " table_name
+read -r -p "Enter the name of the table: " table_name
 table_file="$DB_DIR/${table_name}_metadata.txt"
 table_data="$DB_DIR/$table_name.txt"
 
@@ -25,14 +25,14 @@ for i in "${!cols_names_array[@]}"; do
     echo "$((i+1))) ${cols_names_array[i]}"
 done
 
-read -p "Enter column number: " filter_col_num
+read -r -p "Enter column number: " filter_col_num
 if [[ ! $filter_col_num =~ ^[0-9]+$ ]] || ((filter_col_num < 1 || filter_col_num > ${#cols_names_array[@]})); then
     echo "Invalid column number. Returning to menu..."
     return
 fi
 
 # Ask for the value to search for
-read -p "Enter the value to search for: " filter_value
+read -r -p "Enter the value to search for: " filter_value
 
 # Find matching row(s) and get line number
 matched_line=$(awk -F: -v col="$filter_col_num" -v value="$filter_value" '$col == value {print NR}' "$table_data")
@@ -59,7 +59,7 @@ fi
 
 # Ask for new value and validate it
 while true; do
-    read -p "Enter new value: " new_value
+    read -r -p "Enter new value: " new_value
 
     data_type=${cols_types_array[update_col_num-1]}
 
@@ -67,11 +67,24 @@ while true; do
         check_PK "$new_value" || continue
     fi
 
-    if [ "$data_type" = "int" ]; then
-        check_int "$new_value" && break
-    else
-        check_string "$new_value" && break
-    fi
+     case "$data_type" in
+        "int")
+            check_int "$new_value" && break
+            ;;
+        "string")
+            check_string "$new_value" && break
+            ;;
+        "date")
+            check_date "$new_value" && break
+            ;;
+        "time")
+            check_time "$new_value" && break
+            ;;
+        *)
+            echo "Unknown data type. Skipping validation."
+            break
+            ;;
+    esac
 done
 
 # Update the row in the file
