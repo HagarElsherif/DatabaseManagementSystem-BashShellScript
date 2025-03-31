@@ -6,7 +6,9 @@
 db_menu(){
 
     while true;do
-        echo -e "\n1) Create Table\n2) List Tables\n3) Drop Table\n4) Insert into Table\n5) Select All from Table\n6) Select Specific from Table\n7) Delete from Table\n8) Update Table\n9) Return to main menu\n"
+        
+        echo -e "\e[93m\n1) Create Table\n2) List Tables\n3) Drop Table\n4) Insert into Table\n5) Select All from Table\n6) Select Specific from Table\n7) Delete from Table\n8) Update Table\n9) Return to main menu\n"
+        echo -e "\e[0m"
         read -r -p "Enter your choice number: " option
         case $option in
         "1")

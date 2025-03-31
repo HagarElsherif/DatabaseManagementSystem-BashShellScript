@@ -5,7 +5,9 @@ check_int(){
   if [[ "$1" =~ ^[0-9]+$ ]]; then
     return 0
   else
-    echo -e "Invalid Integer \n"
+    
+    echo -e "\e[31mInvalid Integer\n\e[0m"
+
     return 1
    fi
 
@@ -15,7 +17,10 @@ check_string(){
 
     # Check if input is empty
     if [[ -z "$1" ]]; then
-        echo -e "Error: Empty input\n"
+        
+        echo -e "\e[31mError: Empty input\n\e[0m"
+
+        
         return 1
     fi
 
@@ -24,7 +29,9 @@ check_string(){
 
         return 0
     else
-        echo -e "Invalid string format\n"
+        
+        echo -e "\e[31mInvalid string Format. \n\e[0m"
+        
         return 1
     fi
 
@@ -35,7 +42,8 @@ check_date(){
     if [[ "$1" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
         return 0
     else
-        echo -e "Invalid Date Format. Use YYYY-MM-DD \n"
+        
+        echo -e "\e[31mInvalid Date Format. Use YYYY-MM-DD \n\e[0m"
         return 1
     fi
 }
@@ -45,7 +53,9 @@ check_time(){
     if [[ "$1" =~ ^([01][0-9]|2[0-3])-[0-5][0-9]-[0-5][0-9]$ ]]; then
         return 0
     else
-        echo -e "Invalid Time Format. Use HH-MM-SS \n"
+        
+        echo -e "\e[31mInvalid Time Format. Use HH-MM-SS \n\e[0m"
+
         return 1
     fi
 }

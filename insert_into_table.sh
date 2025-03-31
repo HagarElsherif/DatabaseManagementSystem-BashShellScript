@@ -1,12 +1,15 @@
 #!/bin/bash
 
 # Prompt for table name
-echo ""
+echo -e "\e[35m" 
 read -r -p "Enter the name of the table: " table_name
+echo -e "\e[0m" 
 table_file="$DB_DIR/${table_name}_metadata.txt"
 
 if [ ! -f "$table_file" ] ;then
+    echo -e "\e[31m" 
     echo -e "Table is not found"
+    echo -e "\e[0m" 
     return
 fi 
 
@@ -29,8 +32,9 @@ for ((i=0; i<cols_num; i++)); do
     
     while true ;do
 
-    echo ""
+    echo -e "\e[35m" 
     read -r -p "Enter a value for the $field : " value
+    echo -e "\e[0m" 
         if [ "$i" -eq 0 ] ;then
            check_PK $value || continue
         fi
