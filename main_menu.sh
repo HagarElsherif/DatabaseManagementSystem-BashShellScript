@@ -4,6 +4,7 @@ main_menu() {
         echo -e "\e[93m" 
         echo -e "\n1) Create DataBase\n2) Delete DataBase\n3) Connect DataBase\n4) List DataBases\n5) Exit the program"
         echo -e "\e[0m" 
+
         echo -e "\e[35m" 
         read -r -p "Enter your choice number: " option
         echo -e "\e[0m" 

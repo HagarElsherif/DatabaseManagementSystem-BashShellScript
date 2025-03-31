@@ -38,8 +38,10 @@ db_menu(){
         "9")
             . ./main_menu.sh
             ;;   
-        * )
+        * ) 
+            echo -e "\e[31m"
             echo "Enter an option from the menu"
+            echo -e "\e[0m"
             ;;  
         esac
  
@@ -56,10 +58,13 @@ DB_DIR="dbms"
 
 
 if [ -d "$DB_DIR" ]; then 
-
+    echo -e "\e[35m"
     read -r -p "Enter the database to connect with : " dbName
+    echo -e "\e[0m"
     if [ -z "$dbName" ];then
+       echo -e "\e[31m"
        echo "You must specify a database"
+       echo -e "\e[0m"
        return 
     fi
     
@@ -67,7 +72,9 @@ if [ -d "$DB_DIR" ]; then
       DB_DIR+="/$dbName"
       db_menu 
     else
+        echo -e "\e[31m"
         echo "The database '$dbName' does not exist ."
+        echo -e "\e[0m"
     fi
 
 
